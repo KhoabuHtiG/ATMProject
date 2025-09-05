@@ -580,6 +580,7 @@ public:
         for (std::string i : menu) {std::cout << i << '\n';}
 
         while (true) {
+            input.clear();
             std::cout << "Options: 1-7 || Menu: 'm' || Log out: 'q': ";
             std::cout << "Choose: ";
             std::getline(std::cin, input);
@@ -630,9 +631,7 @@ public:
                     break;
 
                 case('7'):
-                    if (removeAccount(userData.username)) {
-                        return 0;
-                    }
+                    if (removeAccount(userData.username)) return 0;
                     break;
 
                 default:
@@ -676,14 +675,12 @@ void loginMenu() {
             case 'L': {
                 std::cout << "Enter your username: ";
                 std::cin >> userData.username;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear buffer after reading username
 
                 if (userData.username.empty()) {
                     std::cout << "Username can't be empty.\n";
                     break;
                 }
-
-                //Clear the input buffer to avoid any leftover characters
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
                 //Check if the user exists and get their data
                 if (!(gettingData(userData.username, userData.password, userData.balance, userData.pin))) {
