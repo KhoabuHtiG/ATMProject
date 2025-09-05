@@ -7,8 +7,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <windows.h>
 #include <ctime>
+#include <thread>
 #include <chrono>
 #include <conio.h>
 #include "UserData.h"
@@ -189,9 +189,9 @@ void transaction(std::string username, int pin, int &current_balance, std::strin
 
     //Check if the PIN is correct
     if (comfirmPin != pin) {
-        std::cout << "Incorrect PIN\n";
+        std::cout << "Incorrect PIN. \n";
         return;
-    } 
+    }
 
     //Process the transaction
     current_balance -= transactionBalance;
@@ -251,7 +251,7 @@ bool login(std::string password) {
                 for (int i = waitTime; i > 0; i--) {
                     std::cout << "\rRetry available in: " << i << " seconds..";
                     std::cout.flush();
-                    Sleep(1000);
+                    std::this_thread::sleep_for(std::chrono::seconds(2));
                 }
 
                 std::cout << "\nYou may try again now. ";
